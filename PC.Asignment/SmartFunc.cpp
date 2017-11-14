@@ -14,7 +14,6 @@ void SmartFunc::Shuffle(int *array, int size)
 
 int SmartFunc::Random(int start, int end)
 {
-	srand(time(NULL));
 	return rand() % (end - start + 1) + start;
 }
 

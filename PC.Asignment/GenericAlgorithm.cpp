@@ -45,11 +45,11 @@ SOL_TYPE *GenericAlgorithm::__findBestFitnist()
 SOL_TYPE *GenericAlgorithm::__selectParent(int numOfTournament = 3)
 {
 	int i, num;
-	num = SmartFunc::Random(0, MAX_SOL);
+	num = SmartFunc::Random(0, MAX_SOL - 1);
 	SOL_TYPE *parent = &__sols->at(num);
 	for (i = 1; i < numOfTournament; i++)
 	{
-		num = SmartFunc::Random(0, MAX_SOL);
+		num = SmartFunc::Random(0, MAX_SOL - 1);
 		if (parent->Fitness < __sols->at(num).Fitness)
 		{
 			parent = &__sols->at(num);
