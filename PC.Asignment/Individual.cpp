@@ -3,22 +3,34 @@
 
 using std::vector;
 
+int Individual::Capacity = 0;
+int Individual::ActualSize = 0;
 
-Individual::Individual(int *genes, int size)
+Individual::Individual(Gen *genes, int size)
 {
 	this->Genes = genes;
+	this->IsDelete = false;
 	this->Fitness = this->__calcFitness();
 }
 
 
 Individual::~Individual()
 {
-	//delete[] Genes;
+	if (IsDelete)
+	{
+		delete [] Genes;
+	}
 }
 
-int * Individual::RandomChromosome(int * input, int size)
+Gen * Individual::RandomChromosome(Gen * input, int size)
 {
-	int *genes = input;
+	Gen *genes = new Gen[size];
+	int i;
+	for (i = 0; i < size; i++)
+	{
+		genes[i].value = input[i].value;
+		genes[i].key = input[i].key;
+	}
 	SmartFunc::Shuffle(genes, size);
 	return genes;
 }
@@ -29,24 +41,24 @@ int Individual::__calcFitness()
 	vector<int> *caps = new vector<int>(1, Capacity);
 	for (i = 0; i < ActualSize; i++)
 	{
-		if (Genes[i] <= 0) 
+		if (Genes[i].value <= 0)
 		{
-			std::cout << "Genes[" << i << "] = " << Genes[i] << std::endl;
+			std::cout << "Genes[" << i << "] = " << Genes[i].value << std::endl;
 			throw Genes[i];
 		}
 		flag = false;
 		for (j = 0; j < caps->size(); j++)
 		{
-			if (caps->at(j) >= Genes[i])
+			if (caps->at(j) >= Genes[i].value)
 			{
-				caps->at(j) -= Genes[i];
+				caps->at(j) -= Genes[i].value;
 				flag = true;
 				break;
 			}
 		}
 		if (!flag)
 		{
-			caps->push_back(Capacity - Genes[i]);
+			caps->push_back(Capacity - Genes[i].value);
 		}
 	}
 	fitness = caps->size();

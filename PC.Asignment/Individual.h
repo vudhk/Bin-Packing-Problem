@@ -1,15 +1,21 @@
 #pragma once
 
+struct Gen {
+	int value;
+	int key;
+};
+
 class Individual
 {
 public:
 	static int Capacity;
 	static int ActualSize;
-	int *Genes;
+	Gen *Genes;
+	bool IsDelete;
 	int Fitness;
-	Individual(int *gens, int size);
+	Individual(Gen *gens, int size);
 	~Individual();
-	static int * RandomChromosome(int *input, int size);
+	static Gen * RandomChromosome(Gen *input, int size);
 private:
 	int __calcFitness();
 };

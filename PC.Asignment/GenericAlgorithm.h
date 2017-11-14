@@ -3,7 +3,7 @@
 #include "Individual.h"
 
 #define MAX_SOL 100
-#define INPUT_TYPE int
+#define INPUT_TYPE Gen
 #define SOL_TYPE Individual
 
 using std::vector;
@@ -11,7 +11,7 @@ using std::vector;
 class GenericAlgorithm
 {
 public:
-	GenericAlgorithm(INPUT_TYPE *itemsInput, int size, int capacity);
+	GenericAlgorithm(int *itemsInput, int size, int capacity);
 	~GenericAlgorithm();
 	int Run();
 private:
@@ -23,7 +23,7 @@ private:
 	SOL_TYPE *__selectParent(int numOfTournament);
 	SOL_TYPE *__crossover(SOL_TYPE *idvFather, SOL_TYPE *idvMother);
 	void __mutation(SOL_TYPE *individual);
-
+	INPUT_TYPE *__preProcess(int * input);
 };
 
 
