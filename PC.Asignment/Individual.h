@@ -3,7 +3,8 @@
 class Individual
 {
 public:
-	int ActualSize;
+	static int Capacity;
+	static int ActualSize;
 	int *Genes;
 	int Fitness;
 	Individual(int *gens, int size);

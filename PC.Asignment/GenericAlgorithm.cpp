@@ -3,11 +3,13 @@
 
 using namespace std;
 
-GenericAlgorithm::GenericAlgorithm(INPUT_TYPE * itemSizeInput, int inputSize, int capacity)
+GenericAlgorithm::GenericAlgorithm(INPUT_TYPE *itemsInput, int size, int capacity)
 {
-	this->__inputSize = inputSize;
-	this->__itemsInput = itemSizeInput;
+	this->__inputSize = size; 
+	this->__itemsInput = itemsInput;
 	this->__sols = new vector<SOL_TYPE>();
+	Individual::ActualSize = __inputSize;
+	Individual::Capacity = capacity;
 }
 
 GenericAlgorithm::~GenericAlgorithm()
@@ -69,6 +71,7 @@ SOL_TYPE *GenericAlgorithm::__crossover(SOL_TYPE *indivFather, SOL_TYPE *indivMo
 		//
 		gen[i] = indivFather->Genes[i];
 	}
+	//SmartFunc::Print(gen);
 	SOL_TYPE *indivChild = new SOL_TYPE(gen, __inputSize);
 	return indivChild;
 }

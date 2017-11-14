@@ -11,7 +11,7 @@ using std::vector;
 class GenericAlgorithm
 {
 public:
-	GenericAlgorithm(INPUT_TYPE *itemSizeInput, int inputSize, INPUT_TYPE bagSize);
+	GenericAlgorithm(INPUT_TYPE *itemsInput, int size, int capacity);
 	~GenericAlgorithm();
 	int Run();
 private:

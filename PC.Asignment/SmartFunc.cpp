@@ -25,6 +25,18 @@ void SmartFunc::Swap(int *obj1, int *obj2)
 	*obj2 = tmp;
 }
 
+void SmartFunc::Print(int * array)
+{
+	int size = sizeof(array) / sizeof(*array);
+	int i;
+	std::cout << "[" << array[0];
+	for (i = 1; i < size; i++)
+	{
+		std::cout << ", " << array[i];
+	}
+	std::cout << "]" << std::endl;
+}
+
 
 void SmartFunc::Sort(int * input, int inputSize)
 {
