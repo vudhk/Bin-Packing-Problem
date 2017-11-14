@@ -1,9 +1,9 @@
 ﻿#include "stdafx.h"
-#include "GenericAlgorithm.h"
+#include "GeneticAlgorithm.h"
 
 using namespace std;
 
-GenericAlgorithm::GenericAlgorithm(int *itemsInput, int size, int capacity)
+GeneticAlgorithm::GeneticAlgorithm(int *itemsInput, int size, int capacity)
 {
 	this->__inputSize = size;
 	this->__itemsInput = __preProcess(itemsInput);
@@ -12,12 +12,12 @@ GenericAlgorithm::GenericAlgorithm(int *itemsInput, int size, int capacity)
 	Individual::Capacity = capacity;
 }
 
-GenericAlgorithm::~GenericAlgorithm()
+GeneticAlgorithm::~GeneticAlgorithm()
 {
 	delete __sols;
 }
 
-void GenericAlgorithm::__initPopulation()
+void GeneticAlgorithm::__initPopulation()
 {
 	int i;
 	for (i = 0; i < MAX_SOL; i++)
@@ -28,7 +28,7 @@ void GenericAlgorithm::__initPopulation()
 	}
 }
 
-SOL_TYPE *GenericAlgorithm::__findBestFitnist()
+SOL_TYPE *GeneticAlgorithm::__findBestFitnist()
 {
 	int i;
 	SOL_TYPE *fitnist;
@@ -43,7 +43,7 @@ SOL_TYPE *GenericAlgorithm::__findBestFitnist()
 	return fitnist;
 }
 
-SOL_TYPE *GenericAlgorithm::__selectParent(int numOfTournament = 3)
+SOL_TYPE *GeneticAlgorithm::__selectParent(int numOfTournament = 3)
 {
 	int i, num;
 	num = SmartFunc::Random(0, MAX_SOL - 1);
@@ -59,7 +59,7 @@ SOL_TYPE *GenericAlgorithm::__selectParent(int numOfTournament = 3)
 	return parent;
 }
 
-SOL_TYPE *GenericAlgorithm::__crossover(SOL_TYPE *indivFather, SOL_TYPE *indivMother)
+SOL_TYPE *GeneticAlgorithm::__crossover(SOL_TYPE *indivFather, SOL_TYPE *indivMother)
 {
 	//SmartFunc::Print(indivFather->Genes, __inputSize);
 	//SmartFunc::Print(indivMother->Genes, __inputSize);
@@ -110,7 +110,7 @@ SOL_TYPE *GenericAlgorithm::__crossover(SOL_TYPE *indivFather, SOL_TYPE *indivMo
 	return indivChild;
 }
 
-void GenericAlgorithm::__mutation(SOL_TYPE *individual)
+void GeneticAlgorithm::__mutation(SOL_TYPE *individual)
 {
 	int i, j;
 	i = SmartFunc::Random(0, __inputSize - 1);
@@ -118,7 +118,7 @@ void GenericAlgorithm::__mutation(SOL_TYPE *individual)
 	SmartFunc::Swap(&individual->Genes[i], &individual->Genes[j]);
 }
 
-INPUT_TYPE *GenericAlgorithm::__preProcess(int * input)
+INPUT_TYPE *GeneticAlgorithm::__preProcess(int * input)
 {
 	INPUT_TYPE *inputGen = new INPUT_TYPE[__inputSize];
 	int i;
@@ -132,7 +132,7 @@ INPUT_TYPE *GenericAlgorithm::__preProcess(int * input)
 }
 
 
-int GenericAlgorithm::Run()
+int GeneticAlgorithm::Run()
 {
 	int i, j;
 	vector<SOL_TYPE> *newPopulation;

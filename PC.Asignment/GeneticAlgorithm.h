@@ -8,11 +8,11 @@
 
 using std::vector;
 
-class GenericAlgorithm
+class GeneticAlgorithm
 {
 public:
-	GenericAlgorithm(int *itemsInput, int size, int capacity);
-	~GenericAlgorithm();
+	GeneticAlgorithm(int *itemsInput, int size, int capacity);
+	~GeneticAlgorithm();
 	int Run();
 private:
 	INPUT_TYPE *__itemsInput;
