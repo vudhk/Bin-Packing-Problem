@@ -1,4 +1,4 @@
-﻿#include "stdafx.h"
+#include "stdafx.h"
 #include "GeneticAlgorithm.h"
 #include "SmartFunc.h"
 
