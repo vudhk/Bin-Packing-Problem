@@ -39,7 +39,7 @@ void GeneticAlgorithm::__initPopulation()
 
 	}
 	//double elapse = omp_get_wtime() - start;
-	std::cout << "---InitPopulation in: " << elapse << "(s)" << std::endl;
+	//std::cout << "---InitPopulation in: " << elapse << "(s)" << std::endl;
 }
 
 SOL_TYPE *GeneticAlgorithm::__findBestFitnist()
@@ -67,7 +67,7 @@ SOL_TYPE *GeneticAlgorithm::__findBestFitnist()
 	}
 
 	//double elapse = omp_get_wtime() - start;
-	std::cout << "---FindBestFitnist in: " << elapse << "(s)" << std::endl;
+	//std::cout << "---FindBestFitnist in: " << elapse << "(s)" << std::endl;
 
 	return fitnist;
 }

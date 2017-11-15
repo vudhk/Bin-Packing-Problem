@@ -33,7 +33,7 @@ int main()
 	GeneticAlgorithm *ga = new GeneticAlgorithm(input, size, capacity);
 	solution = ga->Run();
 	//double elapse = omp_get_wtime() - start;
-	cout << "solution: " << solution << " in: "<< elapse << " (s)" << endl;
+	//cout << "solution: " << solution << " in: "<< elapse << " (s)" << endl;
 
 	delete ga;
 	
