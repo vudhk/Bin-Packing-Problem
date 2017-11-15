@@ -3,7 +3,7 @@
 // Bin-Packing problem with Genetic Algorithm
 //
 
-#include "stdafx.h"
+#include "Stdafx.h"
 
 using namespace std;
 

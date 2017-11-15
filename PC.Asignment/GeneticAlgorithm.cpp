@@ -1,4 +1,4 @@
-﻿#include "stdafx.h"
+﻿#include "Stdafx.h"
 #include "GeneticAlgorithm.h"
 
 using namespace std;
