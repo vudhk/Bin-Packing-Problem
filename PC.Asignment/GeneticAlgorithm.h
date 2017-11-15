@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include "Individual.h"
 
@@ -20,7 +20,7 @@ private:
 	vector<SOL_TYPE> *__sols;
 	void __initPopulation();
 	SOL_TYPE *__findBestFitnist();
-	SOL_TYPE *__selectParent(int numOfTournament);
+	SOL_TYPE *__selectParent();
 	SOL_TYPE *__crossover(SOL_TYPE *idvFather, SOL_TYPE *idvMother);
 	void __mutation(SOL_TYPE *individual);
 	INPUT_TYPE *__preProcess(int * input);

@@ -19,51 +19,96 @@ GeneticAlgorithm::~GeneticAlgorithm()
 
 void GeneticAlgorithm::__initPopulation()
 {
+	double start = omp_get_wtime();
 	int i;
+
+#ifdef PARALLEL
+#pragma omp parallel for private(i)
+#endif
+
 	for (i = 0; i < MAX_SOL; i++)
 	{
 		Gen *gen = SOL_TYPE::RandomChromosome(__itemsInput, __inputSize);
 		SOL_TYPE sol(gen, __inputSize);
+
+#ifdef PARALLEL
+#pragma omp critical
+#endif
+
 		__sols->push_back(sol);
+
 	}
+	double elapse = omp_get_wtime() - start;
+	std::cout << "---InitPopulation in: " << elapse << "(s)" << std::endl;
 }
 
 SOL_TYPE *GeneticAlgorithm::__findBestFitnist()
 {
+	double start = omp_get_wtime();
 	int i;
 	SOL_TYPE *fitnist;
 	fitnist = &__sols->at(0);
+
+#ifdef PARALLEL
+#pragma omp parallel for private(i)
+#endif
+
 	for (i = 1; i < MAX_SOL; i++)
 	{
 		if (__sols->at(i).Fitness < fitnist->Fitness)
 		{
+
+#ifdef PARALLEL
+#pragma omp critical
+#endif
 			fitnist = &__sols->at(i);
+
 		}
 	}
+
+	double elapse = omp_get_wtime() - start;
+	std::cout << "---FindBestFitnist in: " << elapse << "(s)" << std::endl;
+
 	return fitnist;
 }
 
-SOL_TYPE *GeneticAlgorithm::__selectParent(int numOfTournament = 3)
+SOL_TYPE *GeneticAlgorithm::__selectParent()
 {
+	double start = omp_get_wtime();
+
 	int i, num;
+	int x = (int)(0.3 * __inputSize);
+	int numOfTournament = x < 1 ? 1 : x;
+
 	num = SmartFunc::Random(0, MAX_SOL - 1);
 	SOL_TYPE *parent = &__sols->at(num);
+
+#ifdef PARALLEL
+#pragma omp parallel for private(i, num)
+#endif
+
 	for (i = 1; i < numOfTournament; i++)
 	{
 		num = SmartFunc::Random(0, MAX_SOL - 1);
 		if (parent->Fitness < __sols->at(num).Fitness)
 		{
+
+#ifdef PARALLEL
+#pragma omp critical
+#endif
 			parent = &__sols->at(num);
+
 		}
 	}
+
+	double elapse = omp_get_wtime() - start;
+	//std::cout << "---SelectParent in: " << elapse << "(s)" << std::endl;
+
 	return parent;
 }
 
 SOL_TYPE *GeneticAlgorithm::__crossover(SOL_TYPE *indivFather, SOL_TYPE *indivMother)
 {
-	//SmartFunc::Print(indivFather->Genes, __inputSize);
-	//SmartFunc::Print(indivMother->Genes, __inputSize);
-
 	Gen *gen = new Gen[__inputSize];
 	int i = 0, j, k;
 	bool flag;
@@ -105,7 +150,7 @@ SOL_TYPE *GeneticAlgorithm::__crossover(SOL_TYPE *indivFather, SOL_TYPE *indivMo
 			i++;
 		}
 	}
-	//SmartFunc::Print(gen, __inputSize);
+
 	SOL_TYPE *indivChild = new SOL_TYPE(gen, __inputSize);
 	return indivChild;
 }
@@ -151,12 +196,14 @@ int GeneticAlgorithm::Run()
 			__mutation(child);
 			newPopulation->push_back(*child);
 		}
+		//double start = omp_get_wtime();
 		// delete old population
 		for (j = 0; j < MAX_SOL; j++)
 		{
 			__sols->at(j).IsDelete = true;
 			__sols->at(j).~Individual();
 		}
+		//double elapse = omp_get_wtime() - start;
 		// renew population
 		__sols = newPopulation;
 	}
