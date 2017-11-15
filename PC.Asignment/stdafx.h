@@ -11,7 +11,7 @@
 #include <math.h>
 #include <stdio.h>
 
-#if true
+#if false
 #define PARALLEL
 #else
 #define SEQUENTIAL

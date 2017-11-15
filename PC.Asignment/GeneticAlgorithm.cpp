@@ -1,4 +1,4 @@
-﻿#include "stdafx.h"
+#include "stdafx.h"
 #include "GeneticAlgorithm.h"
 
 using namespace std;
@@ -19,7 +19,7 @@ GeneticAlgorithm::~GeneticAlgorithm()
 
 void GeneticAlgorithm::__initPopulation()
 {
-	double start = omp_get_wtime();
+	//double start = omp_get_wtime();
 	int i;
 
 #ifdef PARALLEL
@@ -38,13 +38,13 @@ void GeneticAlgorithm::__initPopulation()
 		__sols->push_back(sol);
 
 	}
-	double elapse = omp_get_wtime() - start;
+	//double elapse = omp_get_wtime() - start;
 	std::cout << "---InitPopulation in: " << elapse << "(s)" << std::endl;
 }
 
 SOL_TYPE *GeneticAlgorithm::__findBestFitnist()
 {
-	double start = omp_get_wtime();
+	//double start = omp_get_wtime();
 	int i;
 	SOL_TYPE *fitnist;
 	fitnist = &__sols->at(0);
@@ -66,7 +66,7 @@ SOL_TYPE *GeneticAlgorithm::__findBestFitnist()
 		}
 	}
 
-	double elapse = omp_get_wtime() - start;
+	//double elapse = omp_get_wtime() - start;
 	std::cout << "---FindBestFitnist in: " << elapse << "(s)" << std::endl;
 
 	return fitnist;
@@ -74,7 +74,7 @@ SOL_TYPE *GeneticAlgorithm::__findBestFitnist()
 
 SOL_TYPE *GeneticAlgorithm::__selectParent()
 {
-	double start = omp_get_wtime();
+	//double start = omp_get_wtime();
 
 	int i, num;
 	int x = (int)(0.3 * __inputSize);
@@ -101,7 +101,7 @@ SOL_TYPE *GeneticAlgorithm::__selectParent()
 		}
 	}
 
-	double elapse = omp_get_wtime() - start;
+	//double elapse = omp_get_wtime() - start;
 	//std::cout << "---SelectParent in: " << elapse << "(s)" << std::endl;
 
 	return parent;

@@ -1,4 +1,4 @@
-﻿// PC.Asignment.cpp : Defines the entry point for the console application.
+// PC.Asignment.cpp : Defines the entry point for the console application.
 //
 // Bin-Packing problem with Genetic Algorithm
 //
@@ -29,10 +29,10 @@ int main()
 	int size = sizeof(input) / sizeof(*input);
 	int capacity = 100;
 	cout << "Starting..." << endl;
-	double start = omp_get_wtime();
+	//double start = omp_get_wtime();
 	GeneticAlgorithm *ga = new GeneticAlgorithm(input, size, capacity);
 	solution = ga->Run();
-	double elapse = omp_get_wtime() - start;
+	//double elapse = omp_get_wtime() - start;
 	cout << "solution: " << solution << " in: "<< elapse << " (s)" << endl;
 
 	delete ga;
