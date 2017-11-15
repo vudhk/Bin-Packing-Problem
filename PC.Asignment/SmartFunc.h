@@ -3,7 +3,7 @@
 #include "Individual.h"
 
 
-static class SmartFunc
+class SmartFunc
 {
 public:
 	static int Random(int start, int end);

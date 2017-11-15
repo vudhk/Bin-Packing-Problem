@@ -1,6 +1,6 @@
 ﻿#include "stdafx.h"
 #include "SmartFunc.h"
-
+#include "GeneticAlgorithm.h"
 
 void SmartFunc::Shuffle(Gen *array, int size)
 {

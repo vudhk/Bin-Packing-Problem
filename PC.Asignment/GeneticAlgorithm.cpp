@@ -1,5 +1,6 @@
 ﻿#include "stdafx.h"
 #include "GeneticAlgorithm.h"
+#include "SmartFunc.h"
 
 using namespace std;
 
@@ -19,7 +20,7 @@ GeneticAlgorithm::~GeneticAlgorithm()
 
 void GeneticAlgorithm::__initPopulation()
 {
-	double start = omp_get_wtime();
+	//double start = omp_get_wtime();
 	int i;
 
 #ifdef PARALLEL
@@ -29,22 +30,22 @@ void GeneticAlgorithm::__initPopulation()
 	for (i = 0; i < MAX_SOL; i++)
 	{
 		Gen *gen = SOL_TYPE::RandomChromosome(__itemsInput, __inputSize);
-		SOL_TYPE sol(gen, __inputSize);
+		SOL_TYPE *sol = new SOL_TYPE(gen, __inputSize);
 
 #ifdef PARALLEL
 #pragma omp critical
 #endif
 
-		__sols->push_back(sol);
+		__sols->push_back(*sol);
 
 	}
-	double elapse = omp_get_wtime() - start;
-	std::cout << "---InitPopulation in: " << elapse << "(s)" << std::endl;
+	//double elapse = omp_get_wtime() - start;
+	//std::cout << "---InitPopulation in: " << elapse << "(s)" << std::endl;
 }
 
 SOL_TYPE *GeneticAlgorithm::__findBestFitnist()
 {
-	double start = omp_get_wtime();
+	//double start = omp_get_wtime();
 	int i;
 	SOL_TYPE *fitnist;
 	fitnist = &__sols->at(0);
@@ -66,15 +67,15 @@ SOL_TYPE *GeneticAlgorithm::__findBestFitnist()
 		}
 	}
 
-	double elapse = omp_get_wtime() - start;
-	std::cout << "---FindBestFitnist in: " << elapse << "(s)" << std::endl;
+	//double elapse = omp_get_wtime() - start;
+	//std::cout << "---FindBestFitnist in: " << elapse << "(s)" << std::endl;
 
 	return fitnist;
 }
 
 SOL_TYPE *GeneticAlgorithm::__selectParent()
 {
-	double start = omp_get_wtime();
+	//double start = omp_get_wtime();
 
 	int i, num;
 	int x = (int)(0.3 * __inputSize);
@@ -101,7 +102,7 @@ SOL_TYPE *GeneticAlgorithm::__selectParent()
 		}
 	}
 
-	double elapse = omp_get_wtime() - start;
+	//double elapse = omp_get_wtime() - start;
 	//std::cout << "---SelectParent in: " << elapse << "(s)" << std::endl;
 
 	return parent;
@@ -196,6 +197,7 @@ int GeneticAlgorithm::Run()
 			__mutation(child);
 			newPopulation->push_back(*child);
 		}
+
 		//double start = omp_get_wtime();
 		// delete old population
 		for (j = 0; j < MAX_SOL; j++)
@@ -203,6 +205,7 @@ int GeneticAlgorithm::Run()
 			__sols->at(j).IsDelete = true;
 			__sols->at(j).~Individual();
 		}
+
 		//double elapse = omp_get_wtime() - start;
 		// renew population
 		__sols = newPopulation;

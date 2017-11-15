@@ -1,8 +1,6 @@
 #pragma once
 
 #include <vector>
-#include "GeneticAlgorithm.h"
-#include "SmartFunc.h"
 #include <iostream>
 #include <stdio.h>
 #include <time.h>
@@ -10,8 +8,9 @@
 #include <omp.h>
 #include <math.h>
 #include <stdio.h>
+#include <string>
 
-#if true
+#if false
 #define PARALLEL
 #else
 #define SEQUENTIAL

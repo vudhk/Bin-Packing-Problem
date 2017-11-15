@@ -1,5 +1,7 @@
 ﻿#include "stdafx.h"
 #include "Individual.h"
+#include "SmartFunc.h"
+#include "GeneticAlgorithm.h"
 
 using std::vector;
 
@@ -10,7 +12,7 @@ Individual::Individual(Gen *genes, int size)
 {
 	this->Genes = genes;
 	this->IsDelete = false;
-	this->Fitness = this->__calcFitness();
+	this->Fitness = this->__calcFitness();	
 }
 
 
@@ -62,7 +64,7 @@ int Individual::__calcFitness()
 		}
 	}
 	fitness = caps->size();
-	caps->~vector();
 	delete caps;
+
 	return fitness;
 }

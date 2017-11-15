@@ -4,6 +4,8 @@
 //
 
 #include "stdafx.h"
+#include "SmartFunc.h"
+#include "GeneticAlgorithm.h"
 
 using namespace std;
 
@@ -14,6 +16,7 @@ int main()
 	int solution, i;
 	cout << "Input creating..." << endl;
 	int input[] = {4, 72, 4, 7, 28, 52, 74, 75, 25, 10, 71, 2, 1, 79, 4, 10, 54, 10, 37, 61, 58, 51, 39, 3, 7, 80, 54, 6, 14, 75, 50, 22, 31, 56, 19, 14, 24, 70, 58, 71, 49, 35, 26, 11, 39, 5, 7, 29, 7, 7, 78, 23, 78, 80, 53, 4, 47, 26, 4, 47, 36, 50, 37, 44, 8, 59, 7, 37, 69, 8, 41, 56, 42, 42, 21, 47, 31, 54, 27, 79, 27, 27, 32, 38, 22, 50, 70, 46, 27, 7, 14, 39, 80, 55, 43, 52, 73, 58, 57, 5 };
+	//int input[] = {1,2,3,4,5};
 	/*
 	int input[1000];
 	//cout << "{";
@@ -29,15 +32,16 @@ int main()
 	int size = sizeof(input) / sizeof(*input);
 	int capacity = 100;
 	cout << "Starting..." << endl;
-	double start = omp_get_wtime();
+	//double start = omp_get_wtime();
 	GeneticAlgorithm *ga = new GeneticAlgorithm(input, size, capacity);
+	cout << "Init GeneticAlgorithm..." << endl;
 	solution = ga->Run();
-	double elapse = omp_get_wtime() - start;
-	cout << "solution: " << solution << " in: "<< elapse << " (s)" << endl;
+	//double elapse = omp_get_wtime() - start;
+	cout << "solution: " << solution << endl;
 
 	delete ga;
 	
-	system("pause");
+	//system("pause");
     return 0;
 }
 
