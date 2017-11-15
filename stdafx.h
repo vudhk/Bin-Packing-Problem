@@ -1,7 +1,8 @@
 #pragma once
 
-#include "GeneticAlgorithm.h"
-#include "SmartFunc.h"
+#include <vector>
+#include "PC.Asignment/GeneticAlgorithm.h"
+#include "PC.Asignment/SmartFunc.h"
 #include <iostream>
 #include <stdio.h>
 #include <time.h>
