@@ -3,8 +3,27 @@
 // Bin-Packing problem with Genetic Algorithm
 //
 
+#pragma once
+
 #include "stdafx.h"
 #include "GeneticAlgorithm.h"
+#include "targetver.h"
+#include "SmartFunc.h"
+#include <iostream>
+#include <stdio.h>
+#include <tchar.h>
+#include <time.h>
+#include <random>
+#include <omp.h>
+#include <math.h>
+#include <stdio.h>
+
+
+#if true
+#define PARALLEL
+#else
+#define SEQUENTIAL
+#endif
 
 using namespace std;
 
