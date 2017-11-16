@@ -12,10 +12,10 @@
 
 enum box_orient
 {
-	VERTICAL_1
-	VERTICAL_2
-	HORIZONTAL_1
-	HORIZONTAL_2
+	VERTICAL_1 = 0
+	VERTICAL_2 = 1
+	HORIZONTAL_1 = 2
+	HORIZONTAL_2 = 3
 };
 
 struct point
@@ -47,6 +47,9 @@ struct EMS
 struct bin
 {
 	int numOfBox;
+	int width;
+	int height;
+	int depth;
 	vector<box> boxes;
 	vector<EMS> EMSs;
 	bool flag;
@@ -61,8 +64,8 @@ struct gene
 struct chromosome
 {
 	int size;
-	gene *genes;
-	box_orient *bo;
+	vector<gene> genes;
+	vector<box_orient> bo;
 };
 
 struct individual
@@ -72,5 +75,5 @@ struct individual
 };
 
 EMS *find_EMS(bin *bin);
-EMS *dftrc_2(box *box, bin *bin, box_orient *bo);
+int dftrc_2(box *box, bin *bin, box_orient *bo);
 void placement(chromosome *chromosome);
