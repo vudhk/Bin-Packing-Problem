@@ -68,3 +68,5 @@ int Individual::__calcFitness()
 
 	return fitness;
 }
+
+
