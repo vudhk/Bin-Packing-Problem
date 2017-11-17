@@ -36,8 +36,7 @@ struct box
 	int height;
 	int depth;
 	bool flag;
-	point *position;
-	box(int id, int w, int h, int d, bool flag, point* position);
+	box(int id, int w, int h, int d, bool flag);
 	box(int id);
 };
 
@@ -78,6 +77,7 @@ struct bin
 	vector<EMS> *EMSs;
 	bool flag;
 	bin();
+	bin(int a, int b, int c);
 };
 
 
@@ -106,9 +106,17 @@ individual *crossover(individual *father, individual *mother);
 void mutation(individual *idv);
 individual *random_chromosome();
 void calc_fitness(individual *idv);
-int placement(chromosome *chrom);
-int dftrc_2(box *box, bin *bin);
-vector<EMS> *find_EMS(bin *bin);
 int random_int(int start, int end);
 float random_float(float start, float end);
 void print(vector<float> *vt);
+int put_box_into_pin(bin *bin, BPS_gene *ibox);
+void print_EMSs(vector<EMS> *EMSs);
+void print_point(point *point);
+vector<EMS> *generate_new_EMSs(bin *bin, BPS_gene *box);
+bool coincide_points(point *a, point *b);
+vector<point> find_points(BPS_gene *box);
+int cross_checking_EMS(vector<EMS> *EMSs);
+bool is_ems2_includes_ems1(EMS *ems1, EMS *ems2);
+vector<EMS> diff_process(EMS *ems, BPS_gene *box);
+bool is_err_EMS(EMS ems);
+bool is_infinity_thickness_EMS(EMS *ems);
