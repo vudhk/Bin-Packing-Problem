@@ -5,17 +5,17 @@
 #include <stdio.h>
 #include <time.h>
 #include <random>
-#include <omp.h>
 #include <math.h>
 #include <stdio.h>
 #include <string>
 
+using namespace std;
 enum box_orient
 {
-	VERTICAL_1
-	VERTICAL_2
-	HORIZONTAL_1
-	HORIZONTAL_2
+	VERTICAL_1,
+	VERTICAL_2,
+	HORIZONTAL_1,
+	HORIZONTAL_2,
 };
 
 struct point
@@ -23,6 +23,7 @@ struct point
 	int x;
 	int y;
 	int z;
+	point(int a, int b, int c);
 };
 
 struct box
@@ -32,24 +33,31 @@ struct box
 	int height;
 	int depth;
 	bool flag;
-	point position;
+	point *position;
+	box(int id, int w, int h, int d, bool flag, point* position);
 };
 
 struct EMS
 {
-	point position;
-	int width;
-	int height;
-	int depth;
-	bool flag;
+	point *a;
+	point *b;
+    int width;
+    int height;
+    int depth;
+	bool flag; //if flag == true --> eliminate this EMS
+	EMS();
+    EMS(point *a, point *b);
 };
 
 struct bin
 {
-	int numOfBox;
-	vector<box> boxes;
-	vector<EMS> EMSs;
+	int width;
+	int height;
+	int depth;
+	vector<box> *boxes;
+	vector<EMS> *EMSs;
 	bool flag;
+	bin(int a, int b, int c);
 };
 
 struct gene
@@ -57,6 +65,7 @@ struct gene
 	int box_id;
 	float value;
 };
+
 
 struct chromosome
 {
@@ -74,3 +83,4 @@ struct individual
 EMS *find_EMS(bin *bin);
 EMS *dftrc_2(box *box, bin *bin, box_orient *bo);
 void placement(chromosome *chromosome);
+
