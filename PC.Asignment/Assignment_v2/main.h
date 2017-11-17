@@ -14,85 +14,85 @@ using std::vector;
 using namespace std;
 enum box_orient
 {
-	FRONT = 0,
-	SIDE = 1,
-	BOTTOM = 2,
-	UNKNOWN = 3
+    FRONT = 0,
+    SIDE = 1,
+    BOTTOM = 2,
+    UNKNOWN = 3
 };
 
 struct point
 {
-	int x;
-	int y;
-	int z;
-	point(int a, int b, int c);
-	point();
+    int x;
+    int y;
+    int z;
+    point(int a, int b, int c);
+    point();
 };
 
 struct box
 {
-	int id;
-	int width;
-	int height;
-	int depth;
-	bool flag;
-	box(int id, int w, int h, int d, bool flag);
-	box(int id);
+    int id;
+    int width;
+    int height;
+    int depth;
+    bool flag;
+    box(int id, int w, int h, int d, bool flag);
+    box(int id);
 };
 
 struct EMS
 {
-	point *a;
-	point *b;
+    point *a;
+    point *b;
     int width;
     int height;
     int depth;
-	bool flag; //if flag == true --> eliminate this EMS
-	EMS();
+    bool flag; //if flag == true --> eliminate this EMS
+    EMS();
     EMS(point *a, point *b);
 };
 
 struct BPS_gene
 {
-	int box_id;
-	float value;
-	bool flag;
-	point *position;
-	BPS_gene(int box_id);
+    int box_id;
+    float value;
+    bool flag;
+    point *position;
+    BPS_gene(int box_id);
 };
 
 struct BO_gene
 {
-	box_orient bo;
-	float value;
-	BO_gene();
+    box_orient bo;
+    float value;
+    BO_gene();
 };
 
 struct bin
 {
-	int width;
-	int height;
-	int depth;
-	vector<BPS_gene> *boxes;
-	vector<EMS> *EMSs;
-	bool flag;
-	bin();
-	bin(int a, int b, int c);
+    int width;
+    int height;
+    int depth;
+    vector<BPS_gene> *boxes;
+    vector<EMS> *EMSs;
+    bool flag;
+    bin();
+    bin(int a, int b, int c);
 };
 
 
 struct chromosome
 {
-	vector<BPS_gene> *BPS;
-	vector<BO_gene> *VBO;
-	chromosome(vector<BPS_gene> *BPS_gene, vector<BO_gene> *BO_gene);
+    vector<BPS_gene> *BPS;
+    vector<BO_gene> *VBO;
+    chromosome(vector<BPS_gene> *BPS_gene, vector<BO_gene> *BO_gene);
 };
 
 struct individual
 {
-	chromosome *chrom;
-	int fitness;
-	individual(chromosome *chrom);
+    chromosome *chrom;
+    int fitness;
+    individual(chromosome *chrom);
 };
 
 vector<EMS> *find_EMS(bin *bin);
