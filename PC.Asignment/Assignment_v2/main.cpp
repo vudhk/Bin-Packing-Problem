@@ -353,6 +353,10 @@ int dftrc_2(box *box, bin *bin)
 							}
 						}
 						break;
+					case UNKNOWN:
+						{
+							return -1;
+						}
 				}
 				// if box fits i-th EMS of bin using BO
 				if (w <= bin->EMSs->at(i).width &&
