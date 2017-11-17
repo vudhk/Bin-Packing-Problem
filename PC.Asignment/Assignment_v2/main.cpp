@@ -232,5 +232,183 @@ int main()
 
 
 
+// Return index of EMS in bin->EMSs
+int dftrc_2(box *box, bin *bin)
+{
+	if (bin->EMSs == NULL)
+		return -1;
+	int num_of_EMS = bin->EMSs->size();
+	int EMS_idx = -1;
+	float maxDist = -1;
+	int i, j, k;
+	// Lặp cho mỗi EMS trong bin
+	for (i = 0; i < num_of_EMS; i++)
+	{
+		// Lặp cho 6 hướng của box
+		for (j = 0; j < 3; j++)
+		{
+			box_orient _bo = static_cast<box_orient>(j);
+			for (k = 0; k < 2; k++)
+			{
+				// Xác định width, height, depth tương ứng với mỗi hướng của box.
+				int w, h, d;
+				switch (_bo)
+				{
+					case FRONT:
+						{
+							if (k == 0)
+							{
+								w = box->width;
+								h = box->height;
+								d = box->depth;
+							}
+							else 
+							{
+								w = box->height;
+								h = box->width;
+								d = box->depth;
+							}
+						}
+						break;
+					case SIDE:
+						{
+							if (k == 0)
+							{
+								w = box->depth;
+								h = box->height;
+								d = box->width;
+							}
+							else 
+							{
+								w = box->height;
+								h = box->depth;
+								d = box->width;
+							}
+						}
+						break;
+					case BOTTOM:
+						{
+							if (k == 0)
+							{
+								w = box->width;
+								h = box->depth;
+								d = box->height;
+							}
+							else 
+							{
+								w = box->depth;
+								h = box->width;
+								d = box->height;
+							}
+						}
+						break;
+					case UNKNOWN:
+						{
+							return -1;
+						}
+				}
+				// if box fits i-th EMS of bin using BO
+				if (w <= bin->EMSs->at(i).width &&
+					h <= bin->EMSs->at(i).height &&
+					d <= bin->EMSs->at(i).depth)
+				{
+					float dist = pow(bin->width - bin->EMSs->at(i).position->x - w, 2) +
+								pow(bin->height - bin->EMSs->at(i).position->y - h, 2) +
+								pow(bin->depth - bin->EMSs->at(i).position->z - d, 2);
+					if (dist > maxDist)
+					{
+						maxDist = dist;
+						EMS_idx = i;
+					}
+				}
+			} 
+		}
+	}
+	return EMS_idx;
+}
+
+
+vector<EMS> *find_EMS(bin *bin)
+{
+	return new vector<EMS>(1, *new EMS());
+}
+
+int random_int(int start, int end)
+{
+	return rand() % (end - start + 1) + start;
+}
+
+float random_float(float start, float end)
+{
+	return (rand() % ((int)((end - start) * 1000) + 1)) / 1000.0 + start;
+}
+
+void print(vector<float> *vt)
+{
+	int i;
+	cout << "[" << vt->at(0); 
+	for (i = 1; i < vt->size(); ++i)
+	{
+		cout << ", " << vt->at(i);
+	}
+	cout << "]" << endl;
+}
+
+
+
+
+point::point()
+{
+	this->x = 0;
+	this->y = 0;
+	this->z = 0;
+}
+box::box(int id)
+{
+	this->id = id;
+	this->width = 0;
+	this->height = 0;
+	this->depth = 0;
+}
+EMS::EMS()
+{
+	this->position = new point();
+	this->width = 0;
+	this->height = 0;
+	this->depth = 0;
+	this->flag = false;
+}
+bin::bin()
+{
+	this->width = bin_width;
+	this->height = bin_height;
+	this->depth = bin_depth;
+	this->boxes = new vector<BPS_gene>();
+	this->EMSs = new vector<EMS>();
+	this->EMSs->push_back(*new EMS());
+	this->flag = false;
+}
+BPS_gene::BPS_gene(int box_id)
+{
+	this->box_id = box_id;
+	this->value = random_float(0, 1);
+	this->flag = false;
+	this->position = new point();
+}
+BO_gene::BO_gene()
+{
+	this->bo = static_cast<box_orient>(random_int(0, 2));
+	this->value = random_float(0, 1);
+}
+chromosome::chromosome(vector<BPS_gene> *BPS_gene, vector<BO_gene> *BO_gene)
+{
+	this->BPS = BPS_gene;
+	this->VBO = BO_gene;
+}
+individual::individual(chromosome *chrom)
+{
+	this->chrom = chrom;
+	this->fitness = -1;
+}
 
 

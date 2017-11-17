@@ -4,10 +4,6 @@
 #include <iostream>
 #include <stdio.h>
 #include <time.h>
-<<<<<<< HEAD
-#include <random>
-=======
->>>>>>> 45ccb9aea20ac4732dab4a0db7bb9c3cc7572fee
 #include <math.h>
 #include <stdio.h>
 #include <string>
@@ -18,17 +14,10 @@ using std::vector;
 using namespace std;
 enum box_orient
 {
-<<<<<<< HEAD
-	VERTICAL_1,
-	VERTICAL_2,
-	HORIZONTAL_1,
-	HORIZONTAL_2,
-=======
 	FRONT = 0,
 	SIDE = 1,
 	BOTTOM = 2,
 	UNKNOWN = 3
->>>>>>> 45ccb9aea20ac4732dab4a0db7bb9c3cc7572fee
 };
 
 struct point
@@ -36,11 +25,8 @@ struct point
 	int x;
 	int y;
 	int z;
-<<<<<<< HEAD
 	point(int a, int b, int c);
-=======
 	point();
->>>>>>> 45ccb9aea20ac4732dab4a0db7bb9c3cc7572fee
 };
 
 struct box
@@ -49,18 +35,14 @@ struct box
 	int width;
 	int height;
 	int depth;
-<<<<<<< HEAD
 	bool flag;
 	point *position;
 	box(int id, int w, int h, int d, bool flag, point* position);
-=======
 	box(int id);
->>>>>>> 45ccb9aea20ac4732dab4a0db7bb9c3cc7572fee
 };
 
 struct EMS
 {
-<<<<<<< HEAD
 	point *a;
 	point *b;
     int width;
@@ -69,33 +51,15 @@ struct EMS
 	bool flag; //if flag == true --> eliminate this EMS
 	EMS();
     EMS(point *a, point *b);
-=======
-	point *position;
-	int width;
-	int height;
-	int depth;
-	bool flag;
-	EMS();
->>>>>>> 45ccb9aea20ac4732dab4a0db7bb9c3cc7572fee
 };
 
 struct BPS_gene
 {
-<<<<<<< HEAD
-	int width;
-	int height;
-	int depth;
-	vector<box> *boxes;
-	vector<EMS> *EMSs;
-	bool flag;
-	bin(int a, int b, int c);
-=======
 	int box_id;
 	float value;
 	bool flag;
 	point *position;
 	BPS_gene(int box_id);
->>>>>>> 45ccb9aea20ac4732dab4a0db7bb9c3cc7572fee
 };
 
 struct BO_gene
@@ -131,12 +95,6 @@ struct individual
 	individual(chromosome *chrom);
 };
 
-<<<<<<< HEAD
-EMS *find_EMS(bin *bin);
-EMS *dftrc_2(box *box, bin *bin, box_orient *bo);
-void placement(chromosome *chromosome);
-
-=======
 vector<EMS> *find_EMS(bin *bin);
 int dftrc_2(box *box, bin *bin);
 int placement(chromosome *chrom);
@@ -154,4 +112,3 @@ vector<EMS> *find_EMS(bin *bin);
 int random_int(int start, int end);
 float random_float(float start, float end);
 void print(vector<float> *vt);
->>>>>>> 45ccb9aea20ac4732dab4a0db7bb9c3cc7572fee
