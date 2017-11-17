@@ -12,10 +12,10 @@
 
 enum box_orient
 {
-	VERTICAL_1 = 0
-	VERTICAL_2 = 1
-	HORIZONTAL_1 = 2
-	HORIZONTAL_2 = 3
+	FRONT = 0
+	SIDE = 1
+	BOTTOM = 2
+	UNKNOWN = 3
 };
 
 struct point
@@ -23,6 +23,7 @@ struct point
 	int x;
 	int y;
 	int z;
+	point();
 };
 
 struct box
@@ -31,49 +32,60 @@ struct box
 	int width;
 	int height;
 	int depth;
-	bool flag;
-	point position;
+	box(int id);
 };
 
 struct EMS
 {
-	point position;
+	point *position;
 	int width;
 	int height;
 	int depth;
 	bool flag;
+	EMS();
 };
 
 struct bin
 {
-	int numOfBox;
 	int width;
 	int height;
 	int depth;
-	vector<box> boxes;
-	vector<EMS> EMSs;
+	vector<BPS_gene> *boxes;
+	vector<EMS> *EMSs;
 	bool flag;
+	bin();
 };
 
-struct gene
+struct BPS_gene
 {
 	int box_id;
 	float value;
+	bool flag;
+	point *position;
+	BPS_gene(int box_id);
 };
+
+struct BO_gene
+{
+	box_orient bo;
+	float value;
+	BO_gene();
+}
 
 struct chromosome
 {
-	int size;
-	vector<gene> genes;
-	vector<box_orient> bo;
+	vector<BPS_gene> *BPS;
+	vector<BO_gene> *VBO;
+	chromosome();
 };
 
 struct individual
 {
-	chromosome chromosome;
+	chromosome *chromosome;
 	int fitness;
+	individual();
 };
 
-EMS *find_EMS(bin *bin);
-int dftrc_2(box *box, bin *bin, box_orient *bo);
+vector<EMS> *find_EMS(bin *bin);
+int dftrc_2(box *box, bin *bin);
 void placement(chromosome *chromosome);
