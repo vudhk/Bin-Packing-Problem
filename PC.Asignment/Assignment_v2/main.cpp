@@ -63,7 +63,7 @@ int genetic_algorithm_run()
 	omp_set_num_threads(MAX_NUM_THREAD);
 	cout << "Init population->.." << endl;
 	init_population();
-	for (i = 0; i < 100; i++)
+	for (i = 0; i < 50; i++)
 	{
 		cout << "--- Iteration " << i + 1 << endl;
 		new_population = new vector<individual*>();
