@@ -8,6 +8,7 @@
 #include <stdio.h>
 #include <string>
 #include <stdlib.h>
+#include <omp.h>
 
 using std::vector;
 

@@ -2,15 +2,16 @@
 
 using namespace std;
 
-#define MAX_POPULATION 100
+#define MAX_POPULATION 700
+#define MAX_NUM_THREAD 4
 
 // global variable
 vector<box*> *input_boxes;
 vector<individual*> *population;
-int input_size = 20;
-int bin_width = 20;
-int bin_height = 17;
-int bin_depth = 15;
+int input_size = 400;
+int bin_width = 60;
+int bin_height = 70;
+int bin_depth = 80;
 
 // main function
 int main(int argv, char **argc)
@@ -23,25 +24,18 @@ int main(int argv, char **argc)
 	for (i = 0; i < input_size; i++)
 	{
 		box *_box = new box(i);
-		_box->width = random_int(1, 20);
-		_box->height = random_int(1, 20);
-		_box->depth = random_int(1, 20);
+		_box->width = random_int(1, 50);
+		_box->height = random_int(1, 50);
+		_box->depth = random_int(1, 50);
 		input_boxes->push_back(_box);
 	}
 
-	//    box *box1 = new box(1,2,2,2,true);
-	//    box *box2 = new box(2,1,7,7,true);
-	//    box *box3 = new box(3,8,8,8,true);
-	//    box *box4 = new box(4,3,3,3,true);
-	//    boxes->push_back(*box0);
-	//    boxes->push_back(*box1);
-	//    boxes->push_back(*box2);
-	//    boxes->push_back(*box3);
-	//    boxes->push_back(*box4);
-
 	cout << "Genetic algorithm is running..." << endl;
+
+	double start = omp_get_wtime();
 	int solution = genetic_algorithm_run();
-	cout << "solution: " << solution << " bin(s)" << endl;
+	double elapse = omp_get_wtime() - start;
+	cout << "solution: " << solution << " bin(s) in: " << elapse << "(s)" << endl;
 
 	free_mem();
 	return 0;
@@ -66,7 +60,7 @@ int genetic_algorithm_run()
 	int i, j;
 	vector<individual*> *new_population;
 	individual *father, *mother, *child;
-	omp_set_num_threads(4);
+	omp_set_num_threads(MAX_NUM_THREAD);
 	cout << "Init population->.." << endl;
 	init_population();
 	for (i = 0; i < 100; i++)
